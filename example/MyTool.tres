@@ -13,43 +13,45 @@ export(String) var simple_parameter_3
 
 # If the parameter name contains \"button_\" and the button text is \"Save\",
 # the button for saving parameters will be displayed when the data is changed
-export var button_save = [\">> Save <<\"]
+export var button_save: Array = [\">> Save <<\"]
 # If the parameter name contains \"button_\", a button with data will be displayed instead,
 # according to the value of the parameter:
 # 	- button text
 #	- callback function
 #	- array of parameters passed to the callback function (including names of exported variables)
-export var button_print = [\">> Print <<\", \"print_log\", [
+export var button_print: Array = [\">> Print <<\", \"print_log\", [
 		\"Test_string\",
 		\"simple_parameter_1\",
 		\"simple_parameter_2\",
 		\"simple_parameter_3\"
 	]]
-export var button_any = [\">> Any <<\", \"do_something\"]
+export var button_any: Array = [\">> Any <<\", \"do_something\"]
 
 # Just a callback function for the \"Print\" button
-func print_log(parameters):
+func print_log(parameters: Array) -> void:
 	print(\"Parameter_1: \", parameters[0])
 	print(\"Parameter_2: \", parameters[1])
 	print(\"Parameter_3: \", parameters[2])
 	print(\"Parameter_4: \", parameters[3])
 
 # Just a callback function for the \"Any\" button
-func do_something():
+func do_something() -> void:
 	print(\"Let's do something! Let's save the parameters.\")
 	emit_signal(\"save\")
 	print(\"Done!\")
 
 
 # Some possibly useful functions
-func init():
+var editor_plugin: EditorPlugin
+func init(editor_plugin: EditorPlugin) -> void:
+	self.editor_plugin = editor_plugin
 	print(\"Hello from 'init!'\")
 
 # And delegate functions
-func process(_delta):
+func process(_delta: float) -> void:
 	print(\"Hello from 'process!'\")
 #
-func physics_process(_delta):
+func physics_process(_delta: float) -> void:
 	print(\"Hello from 'physics_process!'\")
 "
 
